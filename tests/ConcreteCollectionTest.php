@@ -2,12 +2,6 @@
 
 namespace rc;
 
-use rc\Hooks\Functions\Contains;
-use rc\Hooks\Functions\GetSize;
-use rc\Hooks\HookInterface;
-use rc\Hooks\Invariants\MaxElements;
-use rc\Hooks\Invariants\MinElements;
-
 class ConcreateCollectionTest extends BaseCollectionTestCase {
 
     public function setUp(){
@@ -18,20 +12,9 @@ class ConcreateCollectionTest extends BaseCollectionTestCase {
 
 class concrete extends ArrayObjectCollection {
 
-    public function  __construct(array $elements, HookInterface $hooks = null)
+    public function  __construct(array $elements)
     {
-        $hooks = new Configuration(
-            [
-                new MaxElements(),
-                new MinElements()
-            ],
-            [
-                new GetSize(),
-                new Contains()
-            ]
-        );
-
-        parent::__construct($elements, $hooks);
+        parent::__construct($elements);
     }
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace rc\Hooks\Collections;
+namespace rc\Hooks\Factory;
 
 interface CollectionStrategyInterface
 {

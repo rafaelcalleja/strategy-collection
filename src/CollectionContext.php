@@ -4,7 +4,7 @@ namespace rc;
 
 use rc\Hooks\Functions\Contains;
 use rc\Hooks\Functions\GetSize;
-use rc\Hooks\HookInterface;
+use rc\Hooks\ConfigurationInterface;
 
 /**
  * @mixin GetSize
@@ -18,20 +18,20 @@ abstract class CollectionContext implements CollectionInterface, \IteratorAggreg
     private $collection;
 
     /**
-     * @var HookInterface
+     * @var ConfigurationInterface
      */
-    private $hooks;
+    private $configuration;
 
     /**
      * @param CollectionInterface $collection
-     * @param HookInterface $hooks
+     * @param ConfigurationInterface $configuration
      */
-    public function __construct($collection, HookInterface $hooks)
+    public function __construct(ConfigurationInterface $configuration)
     {
-        $this->collection = $collection;
-        $this->hooks = $hooks;
+        $this->configuration = $configuration;
 
-        $this->executePostsHooks($this->hooks);
+        $this->collection = $configuration->collection();
+        $this->executePostsHooks();
     }
 
     /**
@@ -41,7 +41,7 @@ abstract class CollectionContext implements CollectionInterface, \IteratorAggreg
      */
     public function __call($name, $arguments)
     {
-        foreach ($this->hooks->functionHooks() as $hook) {
+        foreach ($this->configuration->functionHooks() as $hook) {
             if ($hook->name() === $name) {
                 return $hook($this->collection, $arguments);
             }
@@ -76,7 +76,7 @@ abstract class CollectionContext implements CollectionInterface, \IteratorAggreg
     public function offsetSet($offset, $value)
     {
         $this->collection->offsetSet($offset, $value);
-        $this->executePostsHooks($this->hooks);
+        $this->executePostsHooks();
     }
 
     /**
@@ -88,11 +88,11 @@ abstract class CollectionContext implements CollectionInterface, \IteratorAggreg
     }
 
     /**
-     * @param HookInterface $hooks
+     *
      */
-    private function executePostsHooks(HookInterface $hooks)
+    private function executePostsHooks()
     {
-        foreach ($hooks->postHooks() as $hook) {
+        foreach ($this->configuration->postHooks() as $hook) {
             $hook($this);
         }
     }
@@ -150,31 +150,6 @@ abstract class CollectionContext implements CollectionInterface, \IteratorAggreg
      */
     public function getIterator()
     {
-        if ($this->collection instanceof \IteratorAggregate) {
-            return $this->collection->getIterator();
-        }
-
-        return new \ArrayIterator($this->toArray());
-    }
-
-    private function toArray()
-    {
-        if (method_exists($this->collection, 'getArrayCopy')) {
-            return $this->collection->getArrayCopy();
-        }
-
-        if (method_exists($this->collection, 'toArray')) {
-            return $this->collection->toArray();
-        }
-
-        if ($this->collection instanceof \Traversable) {
-            $array = [];
-            foreach ($this->collection as $element) {
-                $array[] = $element;
-            }
-            return $array;
-        }
-
-        throw new \InvalidArgumentException('Invalid Iterator');
+        return $this->collection->getIterator();
     }
 }

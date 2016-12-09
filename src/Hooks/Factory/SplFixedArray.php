@@ -1,11 +1,13 @@
 <?php
 
-namespace rc\Hooks\Collections;
+namespace rc\Hooks\Factory;
+
+use rc\SplFixedCollection;
 
 class SplFixedArray implements CollectionStrategyInterface
 {
     public function create($collection)
     {
-        return \SplFixedArray::fromArray($collection);
+        return new SplFixedCollection($collection);
     }
 }

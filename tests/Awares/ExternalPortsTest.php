@@ -47,7 +47,7 @@ class ExternalPortsTest extends \PHPUnit_Framework_TestCase {
 
 //Sin modificar DomainAwareInterface
 interface ProtectabeInterface extends
-    \rc\Awares\Collections\ArrayObject,
+    \rc\Awares\Factory\ArrayObject,
     \rc\Awares\Invariants\HasExternalPort,
     ExternalPortInterface
 {
@@ -59,7 +59,7 @@ interface CompanyInvitationInterface extends
     const EXAMPLE_VAR = 'example_var';
 }
 
-class simple extends FactoryAwareCollection implements \rc\Awares\Collections\ArrayObject  {
+class simple extends FactoryAwareCollection implements \rc\Awares\Factory\ArrayObject  {
 
 }
 

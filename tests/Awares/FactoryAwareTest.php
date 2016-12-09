@@ -2,8 +2,8 @@
 
 namespace rc\Awares;
 
-use rc\Awares\Collections\ArrayObject;
-use rc\Awares\Collections\SplFixedArray;
+use rc\Awares\Factory\ArrayObject;
+use rc\Awares\Factory\SplFixedArray;
 
 use rc\BaseCollectionTestCase;
 use rc\FactoryAwareCollection;

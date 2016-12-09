@@ -2,11 +2,17 @@
 
 namespace rc\Hooks;
 
+use rc\CollectionInterface;
 use rc\Hooks\Invariants\PostConditionStrategyInterface;
 use rc\Hooks\Functions\FunctionStrategyInterface;
 
-interface HookInterface
+interface ConfigurationInterface
 {
+    /**
+     * @return CollectionInterface
+     */
+    public function collection();
+
     /**
      * @return PostConditionStrategyInterface[]
      */

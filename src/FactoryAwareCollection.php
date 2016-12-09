@@ -2,13 +2,13 @@
 
 namespace rc;
 
-use rc\Hooks\Collections\CollectionStrategyInterface;
+use rc\Hooks\Factory\CollectionStrategyInterface;
 
 abstract class FactoryAwareCollection extends CollectionContext
 {
     const TYPE_FUNCTIONS = 'Functions';
     const TYPE_INVARIANTS = 'Invariants';
-    const TYPE_COLLECTION = 'Collections';
+    const TYPE_COLLECTION = 'Factory';
 
     public function __construct(array $elements)
     {
@@ -23,8 +23,11 @@ abstract class FactoryAwareCollection extends CollectionContext
         }
 
         parent::__construct(
-            $collection->create($elements),
-            new Configuration($invariants, $functions)
+            new Configuration(
+                $collection->create($elements),
+                $invariants,
+                $functions
+            )
         );
     }
 

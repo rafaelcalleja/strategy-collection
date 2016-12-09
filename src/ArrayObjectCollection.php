@@ -2,16 +2,26 @@
 
 namespace rc;
 
-use rc\Hooks\HookInterface;
+use rc\Hooks\Functions\Contains;
+use rc\Hooks\Functions\GetSize;
+use rc\Hooks\Invariants\MaxElements;
+use rc\Hooks\Invariants\MinElements;
 
 class ArrayObjectCollection extends CollectionContext {
 
-    public  function __construct(array $elements, HookInterface $hooks = null)
+    public  function __construct(array $elements)
     {
-        parent::__construct(
-            new \ArrayObject($elements),
-            $hooks
+        parent::__construct(new Configuration(
+                new DefaultCollection($elements),
+                [
+                    new MaxElements(),
+                    new MinElements()
+                ],
+                [
+                    new GetSize(),
+                    new Contains()
+                ]
+            )
         );
     }
-
 }

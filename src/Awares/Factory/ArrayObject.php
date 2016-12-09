@@ -1,6 +1,6 @@
 <?php
 
-namespace rc\Awares\Collections;
+namespace rc\Awares\Factory;
 
 use rc\Awares\DomainAwareInterface;
 
