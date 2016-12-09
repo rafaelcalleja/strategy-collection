@@ -2,8 +2,9 @@
 
 namespace rc;
 
-use rc\Hooks\HookInterface;
 use rc\Hooks\Invariants\PostConditionStrategyInterface;
+use rc\Hooks\Functions\FunctionStrategyInterface;
+use rc\Hooks\HookInterface;
 
 class Configuration implements HookInterface{
 
@@ -24,7 +25,7 @@ class Configuration implements HookInterface{
     }
 
     /**
-     * @return PostConditionStrategyInterface
+     * @return PostConditionStrategyInterface[]
      */
     public function postHooks()
     {
@@ -32,7 +33,7 @@ class Configuration implements HookInterface{
     }
 
     /**
-     * @return [] FunctionStrategyInterface
+     * @return FunctionStrategyInterface[]
      */
     public function functionHooks()
     {
