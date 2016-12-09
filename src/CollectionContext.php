@@ -10,10 +10,10 @@ use rc\Hooks\ConfigurationInterface;
  * @mixin GetSize
  * @mixin Contains
  */
-abstract class CollectionContext implements CollectionInterface, \IteratorAggregate
+abstract class CollectionContext implements CollectionInterface, \Iterator
 {
     /**
-     * @var \ArrayAccess
+     * @var CollectionInterface | \Iterator
      */
     private $collection;
 
@@ -102,7 +102,7 @@ abstract class CollectionContext implements CollectionInterface, \IteratorAggreg
      */
     public function current()
     {
-        $this->collection->current();
+        return $this->collection->current();
     }
 
     /**
@@ -134,7 +134,7 @@ abstract class CollectionContext implements CollectionInterface, \IteratorAggreg
      */
     public function rewind()
     {
-        return $this->collection->rewind();
+        $this->collection->rewind();
     }
 
     /**
