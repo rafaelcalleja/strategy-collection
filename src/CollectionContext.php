@@ -1,6 +1,7 @@
 <?php
 
 namespace rc;
+
 use rc\Hooks\Functions\Contains;
 use rc\Hooks\Functions\GetSize;
 use rc\Hooks\HookInterface;
@@ -9,8 +10,8 @@ use rc\Hooks\HookInterface;
  * @mixin GetSize
  * @mixin Contains
  */
-abstract class CollectionContext implements \ArrayAccess{
-
+abstract class CollectionContext implements CollectionInterface, \IteratorAggregate
+{
     /**
      * @var \ArrayAccess
      */
@@ -22,10 +23,10 @@ abstract class CollectionContext implements \ArrayAccess{
     private $hooks;
 
     /**
-     * @param \ArrayAccess $collection
+     * @param CollectionInterface $collection
      * @param HookInterface $hooks
      */
-    public function __construct(\ArrayAccess $collection, HookInterface $hooks)
+    public function __construct($collection, HookInterface $hooks)
     {
         $this->collection = $collection;
         $this->hooks = $hooks;
@@ -40,13 +41,17 @@ abstract class CollectionContext implements \ArrayAccess{
      */
     public function __call($name, $arguments)
     {
-        foreach($this->hooks->functionHooks() as $hook){
-            if ( $hook->name() === $name) {
+        foreach ($this->hooks->functionHooks() as $hook) {
+            if ($hook->name() === $name) {
                 return $hook($this->collection, $arguments);
             }
         }
 
-        throw new \BadMethodCallException("Method $name doesn't exists");
+        if (true === is_callable([$this->collection, $name])) {
+            return call_user_func_array([$this->collection, $name], $arguments);
+        }
+
+        throw new \BadMethodCallException("Method $name doesn't exists on collection type of ". get_class($this->collection));
     }
 
     /**
@@ -88,7 +93,88 @@ abstract class CollectionContext implements \ArrayAccess{
     private function executePostsHooks(HookInterface $hooks)
     {
         foreach ($hooks->postHooks() as $hook) {
-            $hook($this->collection);
+            $hook($this);
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function current()
+    {
+        $this->collection->current();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function next()
+    {
+        $this->collection->next();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function key()
+    {
+        return $this->collection->key();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function valid()
+    {
+        return $this->collection->valid();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rewind()
+    {
+        return $this->collection->rewind();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function count()
+    {
+        return $this->collection->count();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getIterator()
+    {
+        if ($this->collection instanceof \IteratorAggregate) {
+            return $this->collection->getIterator();
+        }
+
+        return new \ArrayIterator($this->toArray());
+    }
+
+    private function toArray()
+    {
+        if (method_exists($this->collection, 'getArrayCopy')) {
+            return $this->collection->getArrayCopy();
+        }
+
+        if (method_exists($this->collection, 'toArray')) {
+            return $this->collection->toArray();
+        }
+
+        if ($this->collection instanceof \Traversable) {
+            $array = [];
+            foreach ($this->collection as $element) {
+                $array[] = $element;
+            }
+            return $array;
+        }
+
+        throw new \InvalidArgumentException('Invalid Iterator');
     }
 }
