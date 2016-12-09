@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>PHP</ID>
+  <OriginalElement>\rc\simple</OriginalElement>
+  <nodes>
+    <node x="0.1410256410256352" y="0.0">\rc\CollectionInterface</node>
+    <node x="2.5" y="315.0">\rc\BaseCollectionTestCase</node>
+    <node x="173.1410256410256" y="0.0">\IteratorAggregate</node>
+    <node x="107.99999999999997" y="160.0">\rc\simple</node>
+    <node x="0.0" y="160.0">\rc\concrete</node>
+    <node x="361.55769230769226" y="240.0">\rc\success</node>
+    <node x="0.0" y="395.0">\rc\ConcreateCollectionTest</node>
+    <node x="216.99999999999997" y="160.0">\rc\ProtectedCollection</node>
+    <node x="394.0" y="160.0">\rc\CompanyInvitationInterface</node>
+    <node x="233.0" y="315.0">\rc\ExternalPortsTest</node>
+    <node x="71.99999999999997" y="80.0">\rc\CollectionContext</node>
+    <node x="526.25" y="240.0">\rc\anotherSuccess</node>
+    <node x="418.5" y="80.0">\rc\ProtectableInterface</node>
+    <node x="170.49999999999997" y="240.0">\rc\exception</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="\rc\CompanyInvitationInterface" target="\rc\ProtectableInterface">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="\rc\ConcreateCollectionTest" target="\rc\BaseCollectionTestCase">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="\rc\success" target="\rc\ProtectedCollection">
+      <point x="-21.0" y="-15.0" />
+      <point x="382.55769230769226" y="220.0" />
+      <point x="295.5" y="220.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="\rc\concrete" target="\rc\CollectionContext">
+      <point x="0.0" y="-15.0" />
+      <point x="44.0" y="140.0" />
+      <point x="96.66666666666663" y="140.0" />
+      <point x="-49.33333333333334" y="15.0" />
+    </edge>
+    <edge source="\rc\simple" target="\rc\CollectionContext">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="\rc\CollectionContext" target="\IteratorAggregate">
+      <point x="37.0" y="-15.0" />
+      <point x="182.99999999999997" y="55.0" />
+      <point x="245.1410256410256" y="55.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="\rc\anotherSuccess" target="\rc\ProtectedCollection">
+      <point x="-33.0" y="-15.0" />
+      <point x="559.25" y="210.0" />
+      <point x="347.83333333333337" y="210.0" />
+      <point x="52.33333333333337" y="15.0" />
+    </edge>
+    <edge source="\rc\anotherSuccess" target="\rc\ProtectableInterface">
+      <point x="33.0" y="-15.0" />
+      <point x="625.25" y="140.0" />
+      <point x="551.0" y="140.0" />
+      <point x="53.0" y="15.0" />
+    </edge>
+    <edge source="\rc\exception" target="\rc\ProtectedCollection">
+      <point x="24.0" y="-15.0" />
+      <point x="-52.33333333333334" y="15.0" />
+    </edge>
+    <edge source="\rc\CollectionContext" target="\rc\CollectionInterface">
+      <point x="-37.0" y="-15.0" />
+      <point x="108.99999999999997" y="55.0" />
+      <point x="76.64102564102564" y="55.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="\rc\exception" target="\rc\ProtectableInterface">
+      <point x="-24.0" y="-15.0" />
+      <point x="194.49999999999997" y="140.0" />
+      <point x="445.0" y="140.0" />
+      <point x="-53.0" y="15.0" />
+    </edge>
+    <edge source="\rc\success" target="\rc\CompanyInvitationInterface">
+      <point x="21.0" y="-15.0" />
+      <point x="424.55769230769226" y="220.0" />
+      <point x="498.0" y="220.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="\rc\ProtectedCollection" target="\rc\CollectionContext">
+      <point x="0.0" y="-15.0" />
+      <point x="295.5" y="130.0" />
+      <point x="195.33333333333331" y="130.0" />
+      <point x="49.33333333333334" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="329.5" y="212.5" />
+  <SelectedNodes>
+    <node>\rc\simple</node>
+  </SelectedNodes>
+  <Categories />
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
