@@ -3,7 +3,7 @@
 namespace rc\Awares;
 
 use rc\ExternalPortInterface;
-use rc\FactoryAwareCollection;
+use rc\FactoryAwareAbstractFactoryCollection;
 
 class ExternalPortsTest extends \PHPUnit_Framework_TestCase {
 
@@ -59,20 +59,20 @@ interface CompanyInvitationInterface extends
     const EXAMPLE_VAR = 'example_var';
 }
 
-class simple extends FactoryAwareCollection implements \rc\Awares\Factory\ArrayObject  {
+class simple extends FactoryAwareAbstractFactoryCollection implements \rc\Awares\Factory\ArrayObject  {
 
 }
 
-class success extends FactoryAwareCollection implements CompanyInvitationInterface {
+class success extends FactoryAwareAbstractFactoryCollection implements CompanyInvitationInterface {
 
 }
 
 
-class exception extends FactoryAwareCollection implements ProtectabeInterface {
+class exception extends FactoryAwareAbstractFactoryCollection implements ProtectabeInterface {
 
 }
 
-class anotherSuccess extends FactoryAwareCollection implements ProtectabeInterface {
+class anotherSuccess extends FactoryAwareAbstractFactoryCollection implements ProtectabeInterface {
     const EXAMPLE_VAR = 'example_var2';
 }
 

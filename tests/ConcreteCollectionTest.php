@@ -10,7 +10,7 @@ class ConcreateCollectionTest extends BaseCollectionTestCase {
 
 }
 
-class concrete extends ArrayObjectCollection {
+class concrete extends ArrayObjectAbstractFactoryCollection {
 
     public function  __construct(array $elements)
     {

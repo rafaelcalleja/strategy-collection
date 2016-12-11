@@ -23,7 +23,7 @@ class Configuration implements ConfigurationInterface{
      */
     private $collection;
 
-    public function __construct(CollectionInterface $collection, array $postHooks, array $functionHooks)
+    public function __construct(CollectionInterface $collection, array $postHooks = [], array $functionHooks = [])
     {
         $this->collection = $collection;
         $this->setPostHooks($postHooks);

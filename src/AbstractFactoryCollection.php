@@ -3,14 +3,16 @@
 namespace rc;
 
 use rc\Hooks\Functions\Contains;
+use rc\Hooks\Functions\FunctionStrategyInterface;
 use rc\Hooks\Functions\GetSize;
 use rc\Hooks\ConfigurationInterface;
+use rc\Hooks\Invariants\PostConditionStrategyInterface;
 
 /**
  * @mixin GetSize
  * @mixin Contains
  */
-abstract class CollectionContext implements CollectionInterface, \Iterator
+abstract class AbstractFactoryCollection implements CollectionInterface, \Iterator
 {
     /**
      * @var CollectionInterface | \Iterator
@@ -23,15 +25,41 @@ abstract class CollectionContext implements CollectionInterface, \Iterator
     private $configuration;
 
     /**
-     * @param CollectionInterface $collection
-     * @param ConfigurationInterface $configuration
+     * @var array
      */
-    public function __construct(ConfigurationInterface $configuration)
-    {
-        $this->configuration = $configuration;
+    private $elements;
 
-        $this->collection = $configuration->collection();
-        $this->executePostsHooks();
+    public function __construct(array $elements = [])
+    {
+        $this->elements = $elements;
+        $this->initConfig($elements);
+    }
+
+    /**
+     * @return FunctionStrategyInterface[]
+     */
+    abstract function getFunctions();
+
+    /**
+     * @return PostConditionStrategyInterface[]
+     */
+    abstract function getInvariants();
+
+    /**
+     * @return CollectionInterface
+     */
+    abstract function getCollection(array $elements = []);
+
+    /**
+     * @return void
+     */
+    private function setConfiguration(array $elements = [])
+    {
+        $this->configuration = new Configuration(
+            $this->getCollection($elements),
+            $this->getInvariants(),
+            $this->getFunctions()
+        );
     }
 
     /**
@@ -73,7 +101,7 @@ abstract class CollectionContext implements CollectionInterface, \Iterator
     /**
      * {@inheritdoc}
      */
-    public function offsetSet($offset, $value)
+    final public function offsetSet($offset, $value)
     {
         $this->collection->offsetSet($offset, $value);
         $this->executePostsHooks();
@@ -151,5 +179,15 @@ abstract class CollectionContext implements CollectionInterface, \Iterator
     public function getIterator()
     {
         return $this->collection->getIterator();
+    }
+
+    /**
+     * @return void
+     */
+    private function initConfig(array $elements = [])
+    {
+        $this->setConfiguration($elements);
+        $this->collection = $this->configuration->collection();
+        $this->executePostsHooks();
     }
 }

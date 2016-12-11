@@ -4,7 +4,7 @@ namespace rc;
 
 use rc\Hooks\Factory\CollectionStrategyInterface;
 
-abstract class FactoryAwareCollection extends CollectionContext
+abstract class FactoryAwareAbstractFactoryCollection extends AbstractFactoryCollection
 {
     const TYPE_FUNCTIONS = 'Functions';
     const TYPE_INVARIANTS = 'Invariants';

@@ -7,7 +7,7 @@ use rc\Hooks\Functions\GetSize;
 use rc\Hooks\Invariants\MaxElements;
 use rc\Hooks\Invariants\MinElements;
 
-class ArrayObjectCollection extends CollectionContext {
+class ArrayObjectAbstractFactoryCollection extends AbstractFactoryCollection {
 
     public  function __construct(array $elements)
     {

@@ -6,7 +6,7 @@ use rc\Awares\Factory\ArrayObject;
 use rc\Awares\Factory\SplFixedArray;
 
 use rc\BaseCollectionTestCase;
-use rc\FactoryAwareCollection;
+use rc\FactoryAwareAbstractFactoryCollection;
 
 class FactoryAwareTest extends BaseCollectionTestCase  {
 
@@ -33,10 +33,10 @@ interface fixedByContract extends SplFixedArray {
 
 }
 
-class concrete extends FactoryAwareCollection  implements desingByContract {
+class concrete extends FactoryAwareAbstractFactoryCollection  implements desingByContract {
 
 }
 
-class fixed extends FactoryAwareCollection  implements fixedByContract {
+class fixed extends FactoryAwareAbstractFactoryCollection  implements fixedByContract {
 
 }

@@ -2,11 +2,14 @@
 
 namespace rc;
 
+use rc\Hooks\ConfigurationInterface;
 use rc\Hooks\Functions\Contains;
+use rc\Hooks\Functions\FunctionStrategyInterface;
 use rc\Hooks\Functions\GetSize;
 use rc\Hooks\Invariants\HasExternalPort;
 use rc\Hooks\Invariants\MaxElements;
 use rc\Hooks\Invariants\MinElements;
+use rc\Hooks\Invariants\PostConditionStrategyInterface;
 
 class ExternalPortsTest extends \PHPUnit_Framework_TestCase {
 
@@ -52,71 +55,50 @@ interface CompanyInvitationInterface extends
     const EXAMPLE_VAR = 'example_var';
 }
 
-//Esta seria Base DomainCollection
-class ProtectedCollection extends CollectionContext {
+class simple extends AbstractFactoryCollection {
 
-    public  function __construct(array $elements)
+    /**
+     * @return PostConditionStrategyInterface[]
+     */
+    function getInvariants()
     {
-        parent::__construct(new Configuration(
-                new DefaultCollection($elements),
-                [
-                    new MaxElements(),
-                    new MinElements(),
-                    new HasExternalPort()
-                ],
-                [
-                    new GetSize(),
-                    new Contains(),
-                ]
-            )
-        );
+        return [
+            new MaxElements(),
+            new MinElements()
+        ];
+    }
+
+    /**
+     * @return FunctionStrategyInterface[]
+     */
+    function getFunctions()
+    {
+        return [
+            new GetSize(),
+            new Contains(),
+        ];
+    }
+
+    /**
+     * @return CollectionInterface
+     */
+    function getCollection(array $elements = [])
+    {
+        return new DefaultCollection($elements);
     }
 }
 
-class simple extends CollectionContext {
-
-    public  function __construct(array $elements)
-    {
-        parent::__construct(new Configuration(
-                new DefaultCollection($elements),
-                [
-                    new MaxElements(),
-                    new MinElements()
-                ],
-                [
-                    new GetSize(),
-                    new Contains(),
-                ]
-            )
-        );
-    }
-}
-
-class success extends ProtectedCollection implements CompanyInvitationInterface {
-
-    public function  __construct(array $elements)
-    {
-        parent::__construct($elements);
-    }
+class success extends DomainCollectionFactory implements CompanyInvitationInterface {
 
 }
 
 
-class anotherSuccess extends ProtectedCollection implements ProtectableInterface {
+class anotherSuccess extends DomainCollectionFactory implements ProtectableInterface {
 
     const EXAMPLE_VAR = 'example_var2';
-    public function  __construct(array $elements)
-    {
-        parent::__construct($elements);
-    }
 }
 
-class exception extends ProtectedCollection implements ProtectableInterface {
-
-    public function  __construct(array $elements)
-    {
-        parent::__construct($elements);
-    }
+class exception extends DomainCollectionFactory implements ProtectableInterface {
 
 }
 
