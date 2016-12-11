@@ -19,6 +19,10 @@ abstract class ConfigurationBuilder implements ConfigurationBuilderInterface
      */
     protected $elements;
 
+    /**
+     * @param array $elements
+     * @return ConfigurationBuilder
+     */
     public function __construct(array $elements = [])
     {
         $this->elements = $elements;

@@ -44,6 +44,14 @@ class ExternalPortsTest extends \PHPUnit_Framework_TestCase {
     {
         $collection = new exception([1,2]);
     }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testExceptionExternalInterfaceOcp()
+    {
+        $collection = new exceptionOcp([1,2]);
+    }
 }
 
 //Sin modificar DomainAwareInterface
@@ -110,6 +118,21 @@ class CompanyEmployeeCollection extends ProtectedCollection implements Protectab
 }
 
 class exception extends ProtectedCollection implements ProtectableInterface {
+
+    public function checkInvariants()
+    {
+        // TODO: Implement checkInvariants() method.
+    }
+}
+
+class exceptionOcp extends BuilderCollection implements ProtectableInterface {
+
+    public  function __construct(array $elements)
+    {
+        parent::__construct(
+            (new \rc\Config\Simple($elements))->addInvariant(new HasExternalPort())
+        );
+    }
 
     public function checkInvariants()
     {
