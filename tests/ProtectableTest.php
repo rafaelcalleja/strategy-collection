@@ -19,14 +19,14 @@ class ExternalPortsTest extends \PHPUnit_Framework_TestCase {
 
 
         //SUCESS COMPANY INVITATION
-        $collection = new success([1,2]);
+        $collection = new CompanyInvitationCollection([1,2]);
         $this->assertCount(2, $collection);
 
         $this->assertInstanceOf('rc\ProtectableInterface', $collection);
         $this->assertInstanceOf('rc\CompanyInvitationInterface', $collection);
 
         //SUCESS PROTECTABLE
-        $collection = new anotherSuccess([1,2]);
+        $collection = new CompanyEmployeeCollection([1,2]);
         $this->assertCount(2, $collection);
         $this->assertInstanceOf('rc\ProtectableInterface', $collection);
         $this->assertNotInstanceOf('rc\CompanyInvitationInterface', $collection);
@@ -44,6 +44,7 @@ class ExternalPortsTest extends \PHPUnit_Framework_TestCase {
 //Sin modificar DomainAwareInterface
 interface ProtectableInterface extends ExternalPortInterface
 {
+    public function checkInvariants();
 }
 
 interface CompanyInvitationInterface extends
@@ -53,24 +54,8 @@ interface CompanyInvitationInterface extends
 }
 
 //Esta seria Base DomainCollection
-class ProtectedCollection extends CollectionContext {
+class ProtectedCollection extends DomainCollection {
 
-    public  function __construct(array $elements)
-    {
-        parent::__construct(new Configuration(
-                new DefaultCollection($elements),
-                [
-                    new MaxElements(),
-                    new MinElements(),
-                    new HasExternalPort()
-                ],
-                [
-                    new GetSize(),
-                    new Contains(),
-                ]
-            )
-        );
-    }
 }
 
 class simple extends CollectionContext {
@@ -92,31 +77,30 @@ class simple extends CollectionContext {
     }
 }
 
-class success extends ProtectedCollection implements CompanyInvitationInterface {
+class CompanyInvitationCollection extends ProtectedCollection implements CompanyInvitationInterface {
 
-    public function  __construct(array $elements)
+    public function checkInvariants()
     {
-        parent::__construct($elements);
+        // TODO: Implement checkInvariants() method.
     }
-
 }
 
 
-class anotherSuccess extends ProtectedCollection implements ProtectableInterface {
+class CompanyEmployeeCollection extends ProtectedCollection implements ProtectableInterface {
 
     const EXAMPLE_VAR = 'example_var2';
-    public function  __construct(array $elements)
+
+    public function checkInvariants()
     {
-        parent::__construct($elements);
+        // TODO: Implement checkInvariants() method.
     }
 }
 
 class exception extends ProtectedCollection implements ProtectableInterface {
 
-    public function  __construct(array $elements)
+    public function checkInvariants()
     {
-        parent::__construct($elements);
+        // TODO: Implement checkInvariants() method.
     }
-
 }
 
