@@ -2,6 +2,7 @@
 
 namespace rc;
 
+use rc\Config\Configuration;
 use rc\Hooks\Functions\Contains;
 use rc\Hooks\Functions\GetSize;
 use rc\Hooks\Invariants\HasExternalPort;
@@ -17,6 +18,10 @@ class ExternalPortsTest extends \PHPUnit_Framework_TestCase {
         $this->assertNotInstanceOf('rc\ProtectableInterface', $simple);
         $this->assertNotInstanceOf('rc\CompanyInvitationInterface', $simple);
 
+        //Builder
+        $builder = new builder([1,2]);
+        $this->assertNotInstanceOf('rc\ProtectableInterface', $builder);
+        $this->assertNotInstanceOf('rc\CompanyInvitationInterface', $builder);
 
         //SUCESS COMPANY INVITATION
         $collection = new CompanyInvitationCollection([1,2]);
@@ -74,6 +79,14 @@ class simple extends CollectionContext {
                 ]
             )
         );
+    }
+}
+
+class builder extends BuilderCollection {
+
+    public  function __construct(array $elements)
+    {
+        parent::__construct(new \rc\Config\Simple($elements));
     }
 }
 

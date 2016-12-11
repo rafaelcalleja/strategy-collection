@@ -2,6 +2,7 @@
 
 namespace rc;
 
+use rc\Config\Configuration;
 use rc\Hooks\Functions\Contains;
 use rc\Hooks\Functions\GetSize;
 use rc\Hooks\Invariants\MaxElements;

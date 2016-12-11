@@ -1,7 +1,8 @@
 <?php
 
-namespace rc;
+namespace rc\Config;
 
+use rc\CollectionInterface;
 use rc\Hooks\Functions\FunctionStrategyInterface;
 use rc\Hooks\ConfigurationInterface;
 use rc\Hooks\Invariants\PostConditionStrategyInterface;

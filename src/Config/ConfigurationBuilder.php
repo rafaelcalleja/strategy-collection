@@ -1,11 +1,12 @@
 <?php
 
-namespace rc;
+namespace rc\Config;
 
+use rc\CollectionInterface;
 use rc\Hooks\Functions\FunctionStrategyInterface;
 use rc\Hooks\Invariants\PostConditionStrategyInterface;
 
-class ConfigurationBuilder implements ConfigurationBuilderInterface
+abstract class ConfigurationBuilder implements ConfigurationBuilderInterface
 {
     private $invariants = [];
 
@@ -13,16 +14,22 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
 
     private $collection;
 
-    public static function create()
+    /**
+     * @var array
+     */
+    protected $elements;
+
+    public function __construct(array $elements = [])
     {
-        return new static();
+        $this->elements = $elements;
     }
 
-    /**
-     * @param array $elements
-     */
+    abstract protected function init();
+
     public function build()
     {
+        $this->init();
+
         return new Configuration(
                 $this->collection,
                 $this->invariants,
