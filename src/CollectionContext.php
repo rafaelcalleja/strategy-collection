@@ -6,10 +6,6 @@ use rc\Hooks\Functions\Contains;
 use rc\Hooks\Functions\GetSize;
 use rc\Hooks\ConfigurationInterface;
 
-/**
- * @mixin GetSize
- * @mixin Contains
- */
 abstract class CollectionContext implements CollectionInterface, \Iterator
 {
     /**
