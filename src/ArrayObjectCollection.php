@@ -3,25 +3,41 @@
 namespace rc;
 
 use rc\Hooks\Functions\Contains;
+use rc\Hooks\Functions\FunctionStrategyInterface;
 use rc\Hooks\Functions\GetSize;
 use rc\Hooks\Invariants\MaxElements;
 use rc\Hooks\Invariants\MinElements;
+use rc\Hooks\Invariants\PostConditionStrategyInterface;
 
-class ArrayObjectAbstractFactoryCollection extends AbstractFactoryCollection {
+class ArrayObjectCollection extends AbstractFactoryCollection {
 
-    public  function __construct(array $elements)
+    /**
+     * @return PostConditionStrategyInterface[]
+     */
+    function getInvariants()
     {
-        parent::__construct(new Configuration(
-                new DefaultCollection($elements),
-                [
-                    new MaxElements(),
-                    new MinElements()
-                ],
-                [
-                    new GetSize(),
-                    new Contains()
-                ]
-            )
-        );
+        return [
+            new MaxElements(),
+            new MinElements(),
+        ];
+    }
+
+    /**
+     * @return FunctionStrategyInterface[]
+     */
+    function getFunctions()
+    {
+        return [
+            new GetSize(),
+            new Contains(),
+        ];
+    }
+
+    /**
+     * @return CollectionInterface
+     */
+    function getCollection(array $elements = [])
+    {
+        return new DefaultCollection($elements);
     }
 }
