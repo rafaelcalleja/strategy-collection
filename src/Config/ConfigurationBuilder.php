@@ -27,8 +27,8 @@ abstract class ConfigurationBuilder implements ConfigurationBuilderInterface
      */
     public function __construct(array $elements = [])
     {
-        $this->invariants = new PostConditionsCollection();
-        $this->functions = new FunctionCollection();
+        $this->invariants = [];
+        $this->functions = [];
         $this->elements = $elements;
     }
 
@@ -37,6 +37,9 @@ abstract class ConfigurationBuilder implements ConfigurationBuilderInterface
     public function build()
     {
         $this->init();
+
+        $this->invariants = new PostConditionsCollection($this->invariants);
+        $this->functions = new FunctionCollection($this->functions);
 
         return new Configuration(
                 $this->collection,

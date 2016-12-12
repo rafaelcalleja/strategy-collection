@@ -1,27 +1,44 @@
 <?php
 
-namespace rc\Hooks\Invariants;
+namespace rc\Hooks;
 
-final class PostConditionsCollection extends \ArrayObject implements \Countable, \IteratorAggregate, \ArrayAccess
+abstract class SingleImmutableCollection extends \ArrayObject implements \Countable, \IteratorAggregate, \ArrayAccess
 {
-    public function __construct(array $elements =[])
+    /**
+     * @var string
+     */
+    private $className;
+
+    public function __construct($className, $elements)
     {
+        $this->className = $className;
         parent::__construct();
 
         foreach($elements as $index => $newval){
-            $this->offsetSet($index, $newval);
+            $this->addItem($index, $newval);
         }
     }
 
-    final public function offsetSet($index, $newval)
-    {
-        if (false === $newval instanceof PostConditionStrategyInterface ) {
+    private function addItem($index, $newval){
+
+        if (false === $newval instanceof $this->className ) {
             throw new \InvalidArgumentException(
-                sprintf("Element must be an instance of (PostConditionStrategyInterface), instance of (%s) given",
+                sprintf("Element must be an instance of (%s), instance of (%s) given",
+                    $this->className,
                     is_object($newval) ? get_class($newval) : gettype($newval)
                 ));
         }
 
         parent::offsetSet($index, $newval);
+    }
+
+    final public function offsetSet($index, $newval)
+    {
+        throw new \InvalidArgumentException('collection is immutable');
+    }
+
+    final public function offsetUnset($offset)
+    {
+        throw new \InvalidArgumentException('collection is immutable');
     }
 }
