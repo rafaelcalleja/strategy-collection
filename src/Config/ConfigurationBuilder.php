@@ -10,10 +10,19 @@ use rc\Hooks\Invariants\PostConditionStrategyInterface;
 
 abstract class ConfigurationBuilder implements ConfigurationBuilderInterface
 {
+    /**
+     * @var PostConditionsCollection
+     */
     private $invariants = [];
 
+    /**
+     * @var FunctionCollection
+     */
     private $functions = [];
 
+    /**
+     * @var CollectionInterface
+     */
     private $collection;
 
     /**
@@ -38,13 +47,10 @@ abstract class ConfigurationBuilder implements ConfigurationBuilderInterface
     {
         $this->init();
 
-        $this->invariants = new PostConditionsCollection($this->invariants);
-        $this->functions = new FunctionCollection($this->functions);
-
         return new Configuration(
                 $this->collection,
-                $this->invariants,
-                $this->functions
+                new PostConditionsCollection($this->invariants),
+                new FunctionCollection($this->functions)
         );
     }
 
