@@ -47,4 +47,11 @@ abstract class BaseCollectionTestCase extends \PHPUnit_Framework_TestCase
         $collection->unknown();
     }
 
+    public function testExecuteService() {
+        $collection = new concrete(['service']);
+        $actual = $collection->executeService('helloWorld');
+
+        $this->assertSame('helloWorld', $actual);
+    }
+
 }

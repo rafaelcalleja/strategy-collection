@@ -6,7 +6,7 @@ use rc\Hooks\Functions\Contains;
 use rc\Hooks\Functions\GetSize;
 use rc\Hooks\ConfigurationInterface;
 
-abstract class CollectionContext implements CollectionInterface, \Iterator
+abstract class CollectionContext implements ContextInterface
 {
     /**
      * @var CollectionInterface | \Iterator

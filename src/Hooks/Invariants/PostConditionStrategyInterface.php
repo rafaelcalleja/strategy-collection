@@ -2,9 +2,9 @@
 
 namespace rc\Hooks\Invariants;
 
-use rc\CollectionContext;
+use rc\ContextInterface;
 
 interface PostConditionStrategyInterface
 {
-    public function __invoke(CollectionContext $collection);
+    public function __invoke(ContextInterface $collection);
 }

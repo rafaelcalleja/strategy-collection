@@ -19,9 +19,5 @@ class ConcreateCollectionTest extends BaseCollectionTestCase {
  */
 class concrete extends ArrayObjectCollection {
 
-    public function  __construct(array $elements)
-    {
-        parent::__construct($elements);
-    }
 
 }

@@ -2,15 +2,15 @@
 
 namespace rc\Hooks\Invariants;
 
-use rc\CollectionContext;
+use rc\ContextInterface;
 
-class MaxElements implements PostConditionStrategyInterface{
+class MaxElements implements PostConditionStrategyInterface
+{
 
-    public function __invoke(CollectionContext $collection)
+    public function __invoke(ContextInterface $collection)
     {
-        if ( count($collection) > 3 ){
+        if (count($collection) > 3){
             throw new \InvalidArgumentException('Max elementes is 3');
         }
     }
 }
-

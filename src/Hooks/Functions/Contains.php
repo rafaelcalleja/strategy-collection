@@ -2,12 +2,14 @@
 
 namespace rc\Hooks\Functions;
 
+use rc\CollectionInterface;
+
 /**
  * @method bool contains($element)
 */
 class Contains implements FunctionStrategyInterface {
 
-    public function __invoke(\ArrayAccess $collection, array $arguments = null)
+    public function __invoke(CollectionInterface $collection,array $arguments = null)
     {
         list($entity) = $arguments;
 

@@ -2,12 +2,14 @@
 
 namespace rc\Hooks\Functions;
 
-/**
- * @method int getSize 
-*/
-class GetSize implements FunctionStrategyInterface {
+use rc\CollectionInterface;
 
-    public function __invoke(\ArrayAccess $collection, array $arguments = null)
+/**
+ * @method int getSize
+ */
+class GetSize implements FunctionStrategyInterface
+{
+    public function __invoke(CollectionInterface $collection, array $arguments = null)
     {
         return count($collection);
     }
@@ -17,4 +19,3 @@ class GetSize implements FunctionStrategyInterface {
         return 'getSize';
     }
 }
-

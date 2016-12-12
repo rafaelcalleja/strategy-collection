@@ -109,7 +109,7 @@ class CompanyInvitationCollection extends ProtectedCollection implements Company
 
 class CompanyEmployeeCollection extends ProtectedCollection implements ProtectableInterface {
 
-    const EXAMPLE_VAR = 'example_var2';
+    const EXAMPLE_VAR = 'Domain\\XXX';
 
     public function checkInvariants()
     {
@@ -130,7 +130,9 @@ class exceptionOcp extends BuilderCollection implements ProtectableInterface {
     public  function __construct(array $elements)
     {
         parent::__construct(
-            (new \rc\Config\Simple($elements))->addInvariant(new HasExternalPort())
+            (new \rc\Config\Simple($elements))
+                ->addInvariant(new HasExternalPort())
+
         );
     }
 

@@ -4,6 +4,7 @@ namespace rc;
 
 use rc\Config\Configuration;
 use rc\Hooks\Functions\Contains;
+use rc\Hooks\Functions\ExecuteService;
 use rc\Hooks\Functions\GetSize;
 use rc\Hooks\Invariants\MaxElements;
 use rc\Hooks\Invariants\MinElements;
@@ -20,7 +21,8 @@ class ArrayObjectCollection extends CollectionContext {
                 ],
                 [
                     new GetSize(),
-                    new Contains()
+                    new Contains(),
+                    new ExecuteService()
                 ]
             )
         );
