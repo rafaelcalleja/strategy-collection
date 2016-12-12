@@ -28,7 +28,7 @@ abstract class ConfigurationBuilder implements ConfigurationBuilderInterface
     /**
      * @var array
      */
-    protected $elements;
+    private $elements;
 
     /**
      * @param array $elements
@@ -70,5 +70,10 @@ abstract class ConfigurationBuilder implements ConfigurationBuilderInterface
     {
         $this->functions[] = $function;
         return $this;
+    }
+
+    protected function elements()
+    {
+        return $this->elements;
     }
 }

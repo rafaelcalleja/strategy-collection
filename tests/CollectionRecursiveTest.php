@@ -14,6 +14,14 @@ class CollectionRecursiveTest extends \PHPUnit_Framework_TestCase
     {
         $collection = new feature([]);
     }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testRecursiveLazy()
+    {
+        $collection = new lazy([]);
+    }
 }
 
 class recursive extends BuilderCollection
@@ -37,5 +45,19 @@ class feature extends BuilderCollection {
             (new \rc\Config\Simple($elements))
             ->addInvariant(new MinElements())
         );
+    }
+}
+
+class lazy extends BuilderCollection {
+
+    public  function __construct(array $elements)
+    {
+        $builder = new \rc\Config\Simple($elements);
+        $builder->build();
+
+        $builder->addInvariant(new MinElements());
+        $builder->build();
+
+        parent::__construct($builder);
     }
 }

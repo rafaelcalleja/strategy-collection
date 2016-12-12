@@ -15,7 +15,7 @@ class Domain extends ConfigurationBuilder
     protected function init()
     {
         $this
-            ->setCollection(new DefaultCollection($this->elements))
+            ->setCollection(new DefaultCollection($this->elements()))
             ->addInvariant(new MaxElements())
             ->addInvariant(new MinElements())
             ->addInvariant(new HasExternalPort())

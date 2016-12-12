@@ -11,7 +11,7 @@ class Simple extends ConfigurationBuilder
     protected function init()
     {
         $this
-            ->setCollection(new DefaultCollection($this->elements))
+            ->setCollection(new DefaultCollection($this->elements()))
             ->addInvariant(new MaxElements())
             ->addFunction(new GetSize())
             ;
