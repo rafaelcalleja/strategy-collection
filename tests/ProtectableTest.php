@@ -4,10 +4,12 @@ namespace rc;
 
 use rc\Config\Configuration;
 use rc\Hooks\Functions\Contains;
+use rc\Hooks\Functions\FunctionCollection;
 use rc\Hooks\Functions\GetSize;
 use rc\Hooks\Invariants\HasExternalPort;
 use rc\Hooks\Invariants\MaxElements;
 use rc\Hooks\Invariants\MinElements;
+use rc\Hooks\Invariants\PostConditionsCollection;
 
 class ExternalPortsTest extends \PHPUnit_Framework_TestCase {
 
@@ -77,14 +79,18 @@ class simple extends CollectionContext {
     {
         parent::__construct(new Configuration(
                 new DefaultCollection($elements),
-                [
-                    new MaxElements(),
-                    new MinElements()
-                ],
-                [
-                    new GetSize(),
-                    new Contains(),
-                ]
+                new PostConditionsCollection(
+                    [
+                        new MaxElements(),
+                        new MinElements()
+                    ]
+                ),
+                new FunctionCollection(
+                    [
+                        new GetSize(),
+                        new Contains(),
+                    ]
+                )
             )
         );
     }

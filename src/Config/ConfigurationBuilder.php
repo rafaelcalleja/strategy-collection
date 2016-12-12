@@ -3,7 +3,9 @@
 namespace rc\Config;
 
 use rc\CollectionInterface;
+use rc\Hooks\Functions\FunctionCollection;
 use rc\Hooks\Functions\FunctionStrategyInterface;
+use rc\Hooks\Invariants\PostConditionsCollection;
 use rc\Hooks\Invariants\PostConditionStrategyInterface;
 
 abstract class ConfigurationBuilder implements ConfigurationBuilderInterface
@@ -25,6 +27,8 @@ abstract class ConfigurationBuilder implements ConfigurationBuilderInterface
      */
     public function __construct(array $elements = [])
     {
+        $this->invariants = new PostConditionsCollection();
+        $this->functions = new FunctionCollection();
         $this->elements = $elements;
     }
 
